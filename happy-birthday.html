@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HAPPY BIRFDAEEEEEEEEE</title>
+<style>
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(red, yellow, green);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#moving-banner {
+  width: 110%;
+  height: 34vh;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  position: absolute;
+  top: 33%;
+  right: 0px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.elephant {
+  position: absolute;
+  bottom: 0px;
+  width: 132px;
+  height: 95px;
+  animation: jump 2s ease-in-out 0s infinite backwards;
+}
+
+.elephant-animation-container-1 {
+  position: absolute;
+  width: 132px;
+  height: 95px;
+  bottom: 0px;
+  transform-origin: 50% 50%;
+  animation: lean 2s linear 0s infinite backwards;
+}
+
+.elephant-animation-container-2 {
+  position: absolute;
+  width: 132px;
+  height: 95px;
+  bottom: 0px;
+  transform-origin: 50% 50%;
+  animation: left-to-right 14s linear 0s infinite backwards;
+}
+
+.text {
+  width: 132px;
+  height: 95px;
+  color: white;
+  text-shadow:
+    -2px -2px 0 black,
+	-2px 2px 0 black,
+	2px -2px 0 black,
+	2px 2px 0 black;
+  text-align: center;
+  font-size: 5em;
+  animation: jump 2s ease-in-out 0s infinite;
+  user-select: none;
+}
+
+#bottom-message, #top-message {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 6em;
+  font-family: respective;
+  opacity: 0;
+  animation: showMessage 1s ease forwards;
+  user-select: none;
+}
+
+#bottom-message {
+  bottom: 10px;
+  animation-delay: 14s;
+}
+
+#top-message {
+  top: 0;
+  animation-delay: 12s;
+}
+
+#play-btn {
+  box-sizing: content-box;
+  display: inline-block;
+  padding: 20px;
+  background-color: red;
+  border: 3px solid black;
+  font-family: "Segoe UI", Frutiger, Helvetica Neue, Arial;
+  font-size: 1.5rem;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+#play-btn:active {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  box-shadow: none;
+}
+
+#play-btn:hover {
+  color: white;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 980px) {
+  #top-message {
+    font-size: 10em;
+	animation-delay: 1s;
+  }
+  
+  #bottom-message {
+    font-size: 10em;
+	animation-delay: 1s;
+  }
+}
+
+@keyframes left-to-right {
+  0%   {transform: translateX(-300px);}
+  100%  {transform: translateX(110vw);}
+}
+
+@keyframes jump {
+  0%   {transform: translateY(0px);}
+  50%  {transform: translateY(-40px);}
+  100% {transform: translateY(0px);}
+}
+
+@keyframes lean {
+  0%   {transform: rotate(0deg);}
+  25%  {transform: rotate(-10deg);}
+  50%  {transform: rotate(0deg);}
+  75%  {transform: rotate(10deg);}
+  100% {transform: rotate(0deg);}
+}
+
+@keyframes showMessage {
+  to   {opacity: 100;}
+}
+
+@font-face {
+  font-family: respective;
+  src: url(Respective.ttf);
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="moving-banner"></div>
+<div id="top-message">Jefe</div>
+<!--
+<div id="play-btn">Pause Animation</div>
+-->
+<div id="bottom-message">You'll always be 29 to me...</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+	var count = 0;
+
+	$("#play-btn").click(function() {
+	  if (count % 2 == 1) {
+	    $("#moving-banner * ").css("animation-play-state", "running");
+		$(this).text("Pause Animation!");
+      }
+	  else {
+	    $("#moving-banner * ").css("animation-play-state", "paused");
+		$(this).text("Play Animation!");
+	  }
+      count++;
+	});
+	
+	var message = "HAPPY B-DAY!";
+	var delay = message.length * 1;
+	
+	for (var i = 0; i < message.length; i++) {
+	  var elephantOuterContainer = $("<div class='elephant-animation-container-2'></div>");
+	  var elephantInnerContainer = $("<div class='elephant-animation-container-1'></div>");
+	  var elephantImage = $("<img class='elephant' src='polkadotted-elephant.png'/>");
+	  var elephantText = $("<div class='text'></div>");
+	  delay -= 1;
+	  var delayValue = "" + delay + "s";
+	  
+	  elephantOuterContainer.css("animation-delay", delayValue);
+	  
+	  elephantText.text(message.charAt(i));
+	  elephantInnerContainer.append(elephantImage.clone());
+	  elephantInnerContainer.append(elephantText.clone());
+	  elephantOuterContainer.append(elephantInnerContainer.clone());
+	  $("#moving-banner").append(elephantOuterContainer.clone());
+	}
+	
+</script>
+
+</body>
+
+</html>
