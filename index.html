@@ -183,7 +183,11 @@ body {
 	});
 	
 	var message = "HAPPY B-DAY!";
-	var delay = message.length * 1;
+	if ($("#top-message").css("font-size") == "10em") {
+	  var delay = message.length * 1.2;
+	} else {
+	  var delay = message.length * 1;
+	}
 	
 	for (var i = 0; i < message.length; i++) {
 	  var elephantOuterContainer = $("<div class='elephant-animation-container-2'></div>");
